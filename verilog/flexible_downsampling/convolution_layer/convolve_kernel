@@ -1,0 +1,65 @@
+module convolve_kernel #(
+    parameter INPUT_WIDTH = 19,
+    parameter INPUT_HEIGHT = 19,
+    parameter INPUT_DEPTH = 64,
+    parameter KERNEL_SIZE = 3,
+    parameter BIT_WIDTH = 8
+)(
+    input logic [BIT_WIDTH-1:0] input_tensor [0:INPUT_WIDTH-1][0:INPUT_HEIGHT-1][0:INPUT_DEPTH-1], // 3D Array
+    input logic [BIT_WIDTH-1:0] kernel [0:KERNEL_SIZE-1][0:KERNEL_SIZE-1][0:INPUT_DEPTH-1],        // 3D Array
+    output logic [BIT_WIDTH-1:0] output_tensor [0:INPUT_WIDTH-1][0:INPUT_HEIGHT-1]                // 2D Array
+);
+
+    // Local parameters for padded dimensions
+    localparam PADDED_WIDTH = INPUT_WIDTH + 2;
+    localparam PADDED_HEIGHT = INPUT_HEIGHT + 2;
+
+    // Internal padded input buffer
+    logic [BIT_WIDTH-1:0] padded_input [0:PADDED_WIDTH-1][0:PADDED_HEIGHT-1][0:INPUT_DEPTH-1];
+
+    // Generate padding (zero padding)
+    generate
+        genvar i, j, k;
+        for (i = 0; i < PADDED_HEIGHT; i++) begin
+            for (j = 0; j < PADDED_WIDTH; j++) begin
+                for (k = 0; k < INPUT_DEPTH; k++) begin
+                    if ((i > 0 && i <= INPUT_HEIGHT) && (j > 0 && j <= INPUT_WIDTH)) begin
+                        assign padded_input[i][j][k] = input_tensor[i-1][j-1][k];
+                    end else begin
+                        assign padded_input[i][j][k] = 0;
+                    end
+                end
+            end
+        end
+    endgenerate
+
+    // Output calculation
+    generate
+        genvar x, y;
+        for (x = 0; x < INPUT_HEIGHT; x++) begin
+            for (y = 0; y < INPUT_WIDTH; y++) begin
+                logic signed [31:0] sum; // Accumulator for convolution
+                always_comb begin
+                    sum = 0;
+                    for (int dx = 0; dx < KERNEL_SIZE; dx++) begin
+                        for (int dy = 0; dy < KERNEL_SIZE; dy++) begin
+                            for (int d = 0; d < INPUT_DEPTH; d++) begin
+                                sum += padded_input[x+dx][y+dy][d] *
+                                       kernel[dx][dy][d];
+                            end
+                        end
+                    end
+                    // Clamp and assign to output tensor (convert back to 8-bit)
+                    if (sum > 255) begin
+                        output_tensor[x][y] = 8'hFF; // Maximum 8-bit value
+                    end else if (sum < 0) begin
+                        output_tensor[x][y] = 8'h00; // Minimum 8-bit value
+                    end else begin
+                        output_tensor[x][y] = sum[7:0]; // Take lower 8 bits
+                    end
+                end
+            end
+        end
+    endgenerate
+
+endmodule

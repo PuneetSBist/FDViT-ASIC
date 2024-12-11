@@ -1,0 +1,56 @@
+module testbench;
+
+    parameter INPUT_WIDTH = 19;
+    parameter INPUT_HEIGHT = 19;
+    parameter INPUT_DEPTH = 64;
+    parameter KERNEL_SIZE = 3;
+    parameter BIT_WIDTH = 8;
+
+    // Inputs and outputs
+    logic [BIT_WIDTH-1:0] input_tensor [0:INPUT_WIDTH-1][0:INPUT_HEIGHT-1][0:INPUT_DEPTH-1];
+    logic [BIT_WIDTH-1:0] kernel [0:KERNEL_SIZE-1][0:KERNEL_SIZE-1][0:INPUT_DEPTH-1];
+    logic [BIT_WIDTH-1:0] output_tensor [0:INPUT_WIDTH-1][0:INPUT_HEIGHT-1];
+
+    // Instantiate convolution module
+    convolution_3x3x64 #(
+        .INPUT_WIDTH(INPUT_WIDTH),
+        .INPUT_HEIGHT(INPUT_HEIGHT),
+        .INPUT_DEPTH(INPUT_DEPTH),
+        .KERNEL_SIZE(KERNEL_SIZE),
+        .BIT_WIDTH(BIT_WIDTH)
+    ) conv_inst (
+        .input_tensor(input_tensor),
+        .kernel(kernel),
+        .output_tensor(output_tensor)
+    );
+
+    initial begin
+        // Initialize input tensor and kernel with random 8-bit values
+        for (int i = 0; i < INPUT_WIDTH; i++) begin
+            for (int j = 0; j < INPUT_HEIGHT; j++) begin
+                for (int k = 0; k < INPUT_DEPTH; k++) begin
+                    input_tensor[i][j][k] = $urandom % 256;
+                end
+            end
+        end
+        for (int i = 0; i < KERNEL_SIZE; i++) begin
+            for (int j = 0; j < KERNEL_SIZE; j++) begin
+                for (int k = 0; k < INPUT_DEPTH; k++) begin
+                    kernel[i][j][k] = $urandom % 256;
+                end
+            end
+        end
+
+        // Simulate
+        #10;
+        $display("Output Tensor:");
+        for (int i = 0; i < INPUT_WIDTH; i++) begin
+            for (int j = 0; j < INPUT_HEIGHT; j++) begin
+                $write("%0d ", output_tensor[i][j]);
+            end
+            $write("\n");
+        end
+        $finish;
+    end
+
+endmodule
