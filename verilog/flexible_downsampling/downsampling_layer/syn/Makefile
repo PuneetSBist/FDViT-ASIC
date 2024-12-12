@@ -11,7 +11,7 @@ VERILOG_FILES = \
 	./standard_cells/asap7sc7p5t_24_SIMPLE_RVT_TT.v
 
 # Testbench module
-TESTBENCH_MODULE = test_TPU
+TESTBENCH_MODULE = tb_flexible_downsampling
 
 # Wave file
 WAVE_FILE = ./wave/wave.do
