@@ -7,6 +7,7 @@ module PE_Inst #(parameter bit_width = 8,
              acc_width = multiply_width + systolic_depth - 1)
 (
     clk,
+    reset, 
     is_wt,
     data_in,
     wt_in,
@@ -15,21 +16,23 @@ module PE_Inst #(parameter bit_width = 8,
     );
 
     input clk;
+    input reset;
     input is_wt;
     input [bit_width*systolic_depth-1:0] data_in;
     input [bit_width*systolic_column-1:0] wt_in;
     output [bit_width*systolic_depth-1:0] data_out;
-    output reg[acc_width*systolic_column-1:0] acc_out;
+    output [acc_width*systolic_column-1:0] acc_out;
 
     wire [bit_width*(systolic_depth+1)*systolic_column-1:0] weight_in;
     assign weight_in[bit_width*systolic_column-1:0] = wt_in;
     wire [acc_width*(systolic_depth+1)*systolic_column-1:0] noc_row;
     assign noc_row[acc_width*systolic_column-1:0] = 0;
+    assign acc_out = noc_row[acc_width*(systolic_depth+1)*systolic_column-1:acc_width*systolic_depth*systolic_column];
 
     genvar mac_row;
     generate
     for (mac_row = 0; mac_row < systolic_depth; mac_row = mac_row +1) begin : MAC_ROW
-        MAC_Row row(clk, is_wt,
+        MAC_Row row(clk, reset, is_wt,
             data_in[bit_width*(mac_row+1)-1:bit_width*mac_row],
             weight_in[bit_width*systolic_column*(mac_row+1)-1:bit_width*systolic_column*mac_row],
             noc_row[acc_width*systolic_column*(mac_row+1)-1:acc_width*systolic_column*mac_row],
@@ -51,6 +54,7 @@ module MAC_Row #(parameter bit_width = 8,
              acc_width = multiply_width + depth - 1)
 (
     clk,
+    reset, 
     control,
     data_in,
     weight_in,
@@ -59,6 +63,7 @@ module MAC_Row #(parameter bit_width = 8,
     acc_out    //a+b*c
 );
     input clk;
+    input reset;
     input control; // control signal used to indidate if it is weight loading or not
     input [bit_width-1:0] data_in;   // weight data in
     input [bit_width*size-1:0] weight_in;
@@ -73,7 +78,7 @@ module MAC_Row #(parameter bit_width = 8,
     generate
         //for (mac_col = 0; mac_col < 1; mac_col = mac_col +1) begin
         for (mac_col = 0; mac_col < size; mac_col = mac_col +1) begin : MAC_UNIT
-            MAC mac_unit(clk, control,
+            MAC mac_unit(clk, reset, control,
                 //acc_in
                 acc_in[acc_width*(mac_col+1)-1:acc_width*mac_col],
                 //data_in

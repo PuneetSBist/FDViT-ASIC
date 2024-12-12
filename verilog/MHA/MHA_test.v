@@ -26,7 +26,7 @@ module test_MHA;
 		@(posedge clk);
 		reset = 0;
 		
-                repeat (20) @(posedge clk);
+                repeat (50) @(posedge clk);
                 //check_for_value(acc_out, 19'h 00000, 19'h 00000, 19'h 00000, 19'h 00000); 
 		$finish;
 		end
