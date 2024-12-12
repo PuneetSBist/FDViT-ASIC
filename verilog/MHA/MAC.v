@@ -6,6 +6,7 @@ module MAC #(parameter bit_width = 8,
              READ_WEIGHT_DATA = 1,
              acc_width = multiply_width + depth - 1) (
     clk,
+    reset, 
     control,
     acc_in,     //Last row accumulator
     data_in,    //Feature in
@@ -16,6 +17,7 @@ module MAC #(parameter bit_width = 8,
     );
      
     input clk;
+    input reset;
     input control; // control signal used to indidate if it is weight loading or not
     input [acc_width-1:0] acc_in; // accumulation in
     input [bit_width-1:0] data_in;   // data in
@@ -32,16 +34,20 @@ module MAC #(parameter bit_width = 8,
     wire [acc_width-1:0] acc_wire;
     wire [multiply_width - 1:0]multiply;
 
-    always @(posedge clk) begin
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            memory <= {bit_width{1'b0}};
+        end else begin
         //Read Weight and reset other memory
-        if (control == READ_WEIGHT_DATA) begin
-            memory <= weight_in;
-            feat_memory <= 0;
-            reg_acc <= 0;
-        end
-        else begin
-            feat_memory <= data_in;
-            reg_acc <= acc_wire;
+            if (control == READ_WEIGHT_DATA) begin
+                memory <= weight_in;
+                feat_memory <= 0;
+                reg_acc <= 0;
+            end
+            else begin
+                feat_memory <= data_in;
+                reg_acc <= acc_wire;
+            end
         end
     end
 

@@ -10,6 +10,7 @@ module PE_Blocks #(parameter bit_width = 8,
              pe_blk_count = 16)
 (
     clk,
+    reset,
     is_wt,
     data_in,
     wt_in,
@@ -17,12 +18,13 @@ module PE_Blocks #(parameter bit_width = 8,
     );
 
     input clk;
+    input reset;
     input is_wt;
-    input [bit_width*systolic_depth-1:0] data_in[pe_blk_count-1:0];
-    input [bit_width*systolic_column-1:0] wt_in[pe_blk_count-1:0];
-    output [acc_width*systolic_column-1:0] acc_out[pe_blk_count-1:0];
+    input [bit_width*systolic_depth*pe_blk_count-1:0] data_in;
+    input [bit_width*systolic_column*pe_blk_count-1:0] wt_in;
+    output [acc_width*systolic_column*pe_blk_count-1:0] acc_out;
 
-    wire [acc_width*systolic_column-1:0] acc_out_unstage[pe_blk_count-1:0];
+    wire [acc_width*systolic_column*pe_blk_count-1:0] acc_out_unstage;
 
     wire [bit_width*systolic_depth-1:0] pe_blk_data_in[pe_blk_count-1:0];
     wire [bit_width*systolic_depth-1:0] pe_blk_data_out[pe_blk_count-1:0];
@@ -40,7 +42,7 @@ module PE_Blocks #(parameter bit_width = 8,
 
 
     Staging_Mem #(.acc_width(acc_width), .systolic_column(systolic_column),
-                 .pe_blk_count(pe_blk_count)) stage_acc(.clk(clk), .acc_unstage(acc_out_unstage),
+                 .pe_blk_count(pe_blk_count)) stage_acc(.clk(clk), .reset(reset), .acc_unstage(acc_out_unstage),
                                                         .acc_stage(acc_out));
 
     genvar peIdx;
@@ -48,7 +50,7 @@ module PE_Blocks #(parameter bit_width = 8,
         for (peIdx = 0; peIdx < pe_blk_count; peIdx = peIdx+1) begin : PE_DATA_DISTR
             case (mode)
                 PE_SHARE_ALL: begin
-                    assign pe_blk_data_in[peIdx] = data_in[0];
+                    assign pe_blk_data_in[peIdx] = data_in[bit_width*systolic_depth-1:0];
                 end
             /*
             PE_SHARE_EIGHT: begin
@@ -78,7 +80,7 @@ module PE_Blocks #(parameter bit_width = 8,
             //PE_SHARE_NONE: default
             */
                 default:
-                    assign pe_blk_data_in[peIdx] = data_in[peIdx];
+                    assign pe_blk_data_in[peIdx] = data_in[bit_width*systolic_depth*(peIdx+1)-1:bit_width*systolic_depth*peIdx];
             endcase
         end
     endgenerate
@@ -87,9 +89,9 @@ module PE_Blocks #(parameter bit_width = 8,
     generate
     for (pe_blk = 0; pe_blk < pe_blk_count; pe_blk = pe_blk +1) begin : PE_BLOCK
         //clk, control(later clock gating), data_in, //data_out, wt_in, acc_out 
-        PE_Inst pe_inst(clk, is_wt,/*control[pe_blk],*/
-            pe_blk_data_in[pe_blk], wt_in[pe_blk],
-            pe_blk_data_out[pe_blk], acc_out_unstage[pe_blk]);
+        PE_Inst pe_inst(clk, reset, is_wt,/*control[pe_blk],*/
+            pe_blk_data_in[pe_blk], wt_in[bit_width*systolic_column*(pe_blk+1)-1:bit_width*systolic_column*pe_blk],
+            pe_blk_data_out[pe_blk], acc_out_unstage[acc_width*systolic_column*(pe_blk+1)-1:acc_width*systolic_column*pe_blk]);
     end
     endgenerate
 

@@ -25,6 +25,7 @@ module MHA_fsm #(parameter act_propogate = 16,
     localparam outer_loop_width = $clog2(outer_loop);
     localparam inner_loop_1_width = $clog2(inner_loop_1);
     localparam inner_loop_2_width = $clog2(inner_loop_2);
+    localparam inner_loop_3_width = $clog2(act_propogate);
 
     input wire clk;
     input wire reset;
@@ -33,7 +34,7 @@ module MHA_fsm #(parameter act_propogate = 16,
     output reg write_qkv;
     output read_qkv_op;
     output reg [addr_width-1:0] addr_bus;
-    output reg [addr_width-1:0] addr_bus_QKV[3*16-1:0];
+    output reg [3*16*addr_width-1:0] addr_bus_QKV;
     //output reg [pe_control_width-1:0] control,
     output reg done;                 // DONE signal to indicate completion
 
@@ -67,7 +68,8 @@ module MHA_fsm #(parameter act_propogate = 16,
     reg [addr_width-1:0] next_addr_bus;
     reg read_qkv;
 
-    assign read_qkv_op = (counter_o == 0) ? 0:read_qkv;
+
+    assign read_qkv_op = (counter_o == 0) ? 1'b0 : read_qkv;
 
     //16X3 memory adress to store 16*3*4 channels per token seprated by address
     //write_qkv is set after 3+16 cycles and reset when wt is reloaded
@@ -77,13 +79,18 @@ module MHA_fsm #(parameter act_propogate = 16,
             for (chIdx = 0; chIdx< 16; chIdx= chIdx+1) begin : CHANNEL_INDEX
                 always @(posedge clk or posedge reset) begin
                     if (reset) begin
+                        addr_bus_QKV[(qkvIdx*16+chIdx+1)*addr_width-1:(qkvIdx*16+chIdx)*addr_width] <= (qkvIdx*16'h3000)+(chIdx*16'h0300);
+/* 
                         if (chIdx == 0) begin
-                            addr_bus_QKV[qkvIdx*16] <= qkvIdx*16'h3000;
+                            addr_bus_QKV[(qkvIdx*16+1)*addr_width-1:qkvIdx*16*addr_width] <= qkvIdx*16'h3000;
                         end else begin
-                            addr_bus_QKV[qkvIdx*16+chIdx] <= addr_bus_QKV[qkvIdx*16+chIdx-1]+ 12'h300;
+                            addr_bus_QKV[(qkvIdx*16+chIdx+1)*addr_width-1:(qkvIdx*16+chIdx)*addr_width] <=
+                                addr_bus_QKV[(qkvIdx*16+chIdx)*addr_width-1:(qkvIdx*16+chIdx-1)*addr_width]+12'h300;
                         end
+*/
                     end else begin
-                        addr_bus_QKV[qkvIdx*16+chIdx] <= addr_bus_QKV[qkvIdx*16+chIdx] + write_qkv;
+                        addr_bus_QKV[(qkvIdx*16+chIdx+1)*addr_width-1:(qkvIdx*16+chIdx)*addr_width] <=
+                            addr_bus_QKV[(qkvIdx*16+chIdx+1)*addr_width-1:(qkvIdx*16+chIdx)*addr_width] + read_qkv;
                     end
                 end
             end
@@ -124,15 +131,23 @@ module MHA_fsm #(parameter act_propogate = 16,
             write_qkv <= read_qkv;
             //Writing output QKV val after 3+16 cycles
             if (state != QKV_CALC_STATE) begin
-                write_qkv <= 0;
+                read_qkv <= 0;
                 init_latency <= 0;
-            //Reset before weight reload
-            end else if (counter_3 == act_propogate-1) begin
+            end else if (is_wt && ~next_is_wt) begin
+                //2. new weight are loaded, means no new accumulation
                 read_qkv <= 0;
                 init_latency <= 0;
             end else if (init_latency == last_relax_loop) begin
+                //4. Accumulation are completed for 1st token 
                 read_qkv <= 1;
+                init_latency <= init_latency;
+            end else if (is_wt) begin
+                //1. Usually it is 1(during is_wt), but 0 for starting case
+                read_qkv <= read_qkv;
+                init_latency <= 0;
             end else begin
+                //3. After weight loading completed wait for 16+4 cycles
+                read_qkv <= read_qkv;
                 init_latency <= init_latency+1;
             end
 
@@ -149,15 +164,23 @@ module MHA_fsm #(parameter act_propogate = 16,
                     if (counter_relax == initial_latency-1) begin
                         next_state = DONE_STATE;
                         next_done = 1;
+                        next_counter_relax = counter_relax;
                     end else begin
                         //weight sram off as well as MAC input propogate
                         next_is_wt = 0;
                         next_counter_relax = counter_relax + 1;
                         next_state = QKV_CALC_STATE;  // Stay in QKV_CALC_STATE until the cycle completes
                     end 
+
+                    next_counter_1 = counter_1;
+                    next_counter_2 = counter_2;
+                    next_counter_3 = counter_3;
+                    next_counter_o = counter_o;
+
                     next_read = 0;
                     next_addr_bus = 0;
                 end else begin
+                    next_counter_relax = counter_relax;
                     //Increment outer loop: 4 inp channel processed, need 16
                     //more outer loop, restart inner loops
                     if (counter_3 == act_propogate-1) begin
@@ -165,6 +188,8 @@ module MHA_fsm #(parameter act_propogate = 16,
                         next_is_wt = 1;
                         next_counter_1 = {inner_loop_1_width{1'b0}};
                         next_counter_2 = {inner_loop_2_width{1'b0}};
+                        next_counter_3 = {inner_loop_3_width{1'b0}};
+                        //next_counter_3 = counter_3;
                         next_addr_bus = counter_o*inner_loop_1;
                         next_read = 1;
 
@@ -174,6 +199,10 @@ module MHA_fsm #(parameter act_propogate = 16,
                         next_is_wt = 0;
                         next_read = 0;
                         next_addr_bus = 0;
+
+                        next_counter_1 = counter_1;
+                        next_counter_2 = counter_2;
+                        next_counter_o = counter_o;
 
                     //Inner loop activation load 27X27 cycle(token)
                     end else if (counter_1 == inner_loop_1-1) begin
@@ -185,12 +214,20 @@ module MHA_fsm #(parameter act_propogate = 16,
                         next_is_wt = 0;
                         next_read = 1;
                         next_addr_bus = counter_o*inner_loop_2+ next_counter_2;
+
+                        next_counter_1 = counter_1;
+                        next_counter_3 = counter_3;
+                        next_counter_o = counter_o;
                     //Inner loop weight load 4 cycle(systolic row)
                     end else begin
                         next_read = 1;
                         next_is_wt = 1;
                         next_counter_1 = counter_1 + 1;
                         next_addr_bus = counter_o*inner_loop_1+ next_counter_1;
+
+                        next_counter_2 = counter_2;
+                        next_counter_3 = counter_3;
+                        next_counter_o = counter_o;
                     end 
                     next_done = 0;
                     next_state = QKV_CALC_STATE;  // Stay in QKV_CALC_STATE until the cycle completes
