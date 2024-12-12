@@ -1,31 +1,30 @@
 module flexible_downsampling #(
-    parameter int CIN = 64,             // Number of input channels
-    parameter int stride_scaled = 369, // Scaled stride value in Q8.8 format (1.444 * 256)
-    parameter int HIN = 27,             // Input height/width
-    parameter int HOUT = 19             // Output height/width
+    parameter int CIN = 64,
+    parameter int stride_q8_8 = 369,
+    parameter int HIN = 27,
+    parameter int HOUT = 19
 )(
-    input logic clk,                               // Clock signal
-    input logic rst_n,                             // Active-low reset signal
-    input logic [7:0] ifmap [0:HIN-1][0:HIN-1][0:CIN-1], // Input tensor: 8-bit x HINxHIN x CIN channels
-    input logic ready,                             // Ready signal to start processing
-    output logic [7:0] ofmap [0:HOUT-1][0:HOUT-1][0:CIN-1], // Output tensor: 8-bit x HOUTxHOUT x CIN channels
-    output logic done                              // Done signal
+    input  logic clk,
+    input  logic rst_n,
+    input  logic [7:0] ifmap [0:HIN-1][0:HIN-1][0:CIN-1],
+    input  logic ready,
+    output logic [7:0] ofmap_slice [0:HOUT-1][0:HOUT-1],
+    output logic done
 );
 
-    // Internal signals
-    logic [$clog2(CIN)-1:0] channel_idx;           // Index of the current channel (0 to CIN-1)
-    logic [7:0] ifmap_slice [0:HIN-1][0:HIN-1];    // Current input feature map for one channel
-    logic [7:0] ofmap_slice [0:HOUT-1][0:HOUT-1];  // Current output feature map for one channel
-    logic [1:0] ps, ns;                            // FSM states (ready, running, done)
+    logic [$clog2(CIN)-1:0] channel_idx;
+    logic [1:0] ps, ns;
+
+    // Declare ifmap_slice at module scope
+    logic [7:0] ifmap_slice [0:HIN-1][0:HIN-1];
 
     // FSM states
     typedef enum logic [1:0] {
-        READY = 2'b00,
+        READY   = 2'b00,
         RUNNING = 2'b01,
-        DONE = 2'b10
+        DONE    = 2'b10
     } fsm_state_t;
 
-    // Assign FSM outputs
     assign done = (ps == DONE);
 
     // FSM sequential logic
@@ -37,28 +36,17 @@ module flexible_downsampling #(
     end
 
     // FSM combinational logic
-    always_comb begin
-        case (ps)
-            READY: begin
-                if (ready)
-                    ns = RUNNING;
-                else
-                    ns = READY;
-            end
-            RUNNING: begin
-                if (channel_idx == CIN - 1)
-                    ns = DONE;
-                else
-                    ns = RUNNING;
-            end
-            DONE: begin
-                ns = READY; // Optionally, transition back to READY
-            end
-            default: ns = READY;
-        endcase
-    end
+	always_comb begin
+		case (ps)
+		    READY:   ns = ready ? RUNNING : READY;
+		    RUNNING: ns = (channel_idx == CIN - 1) ? DONE : RUNNING;
+		    DONE:    ns = DONE; // Remain in DONE state
+		    default: ns = READY;
+		endcase
+	end
 
-    // Channel processing logic
+
+    // Channel index management
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n)
             channel_idx <= 0;
@@ -66,36 +54,21 @@ module flexible_downsampling #(
             channel_idx <= channel_idx + 1;
     end
 
-    // Load the input slice and store the output slice
+    // Load the input slice
     always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            // Reset output feature map
-            for (int i = 0; i < HOUT; i++) begin
-                for (int j = 0; j < HOUT; j++) begin
-                    for (int k = 0; k < CIN; k++) begin
-                        ofmap[i][j][k] <= 8'd0;
-                    end
-                end
-            end
-        end else if (ps == RUNNING) begin
-            // Load input slice
+		if (ps == RUNNING) begin
+            // Load input slice for the current channel into the module-level array
             for (int i = 0; i < HIN; i++) begin
                 for (int j = 0; j < HIN; j++) begin
                     ifmap_slice[i][j] <= ifmap[i][j][channel_idx];
                 end
             end
-            // Store output slice
-            for (int i = 0; i < HOUT; i++) begin
-                for (int j = 0; j < HOUT; j++) begin
-                    ofmap[i][j][channel_idx] <= ofmap_slice[i][j];
-                end
-            end
         end
     end
 
-    // Instantiate the downsample module
+    // downsample
     downsample #(
-        .stride_scaled(stride_scaled), // Pass Q8.8 stride
+        .stride_q8_8(stride_q8_8),
         .hin(HIN),
         .hout(HOUT)
     ) u_downsample (

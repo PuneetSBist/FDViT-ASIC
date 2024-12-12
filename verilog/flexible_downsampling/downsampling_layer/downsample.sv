@@ -24,9 +24,14 @@ module downsample #(
 
                 logic [7:0] v_output; // Interpolated output
 
+                logic [15:0] x, y; // Truncate fractionals
+
+                assign x = (stride_q8_8 * j) & 8'hFF;
+                assign y = (stride_q8_8 * i) & 8'hFF;
+
                 bilinear_interpolation u_bilinear_interpolation (
-                    .x((stride_q8_8 * j) & 8'hFF), // Fractional part of stride * j
-                    .y((stride_q8_8 * i) & 8'hFF), // Fractional part of stride * i
+                    .x(x), // Fractional part of stride * j
+                    .y(y), // Fractional part of stride * i
                     .a1(a1),                   // Top right
                     .a2(a2),                   // Top left
                     .a3(a3),                   // Bottom right
