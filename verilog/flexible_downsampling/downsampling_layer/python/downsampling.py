@@ -46,8 +46,11 @@ stride = 1.444
 hin = 27
 hout = 19
 
-# Create a sample input feature map
-ifmap = np.fromfunction(lambda i, j: (i + j) % 256, (hin, hin), dtype=np.uint8)
+# Create a sample input feature map using the same logic as Verilog
+ifmap = np.zeros((hin, hin), dtype=np.uint8)
+for i in range(hin):
+    for j in range(hin):
+        ifmap[i, j] = 10 * (i + j)
 
 # Perform downsampling
 ofmap = downsample(ifmap, stride, hout, hin)

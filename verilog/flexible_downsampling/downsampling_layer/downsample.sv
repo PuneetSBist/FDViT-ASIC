@@ -1,5 +1,5 @@
 module downsample #(
-    parameter real stride = 1.444, // Default stride value
+    parameter int stride_q8_8 = 369, // Default stride value (1.444 * 256 = 369.664) ROUND DOWN OR RISK OUT OF BOUNDS
     parameter int hin = 27,
     parameter int hout = 19
 )(
@@ -11,10 +11,10 @@ module downsample #(
     generate 
         for (i = 0; i < hout; i++) begin
             for (j = 0; j < hout; j++) begin : bilinear_block
-                localparam int floor_ph = $floor(stride * i);
-                localparam int ceil_ph = $ceil(stride * i);
-                localparam int floor_pw = $floor(stride * j);
-                localparam int ceil_pw = $ceil(stride * j);
+                localparam int floor_ph = (stride_q8_8 * i) >> 8; // Integer part of stride * i
+                localparam int ceil_ph = floor_ph + 1; // Ceiling of stride * i
+                localparam int floor_pw = (stride_q8_8 * j) >> 8; // Integer part of stride * j
+                localparam int ceil_pw = floor_pw + 1; // Ceiling of stride * j
 
                 logic [7:0] a1, a2, a3, a4;
                 assign a1 = ifmap[ceil_ph][ceil_pw];    // Top right
@@ -25,8 +25,8 @@ module downsample #(
                 logic [7:0] v_output; // Interpolated output
 
                 bilinear_interpolation u_bilinear_interpolation (
-                    .x(stride * j - floor_pw), // x offset within the cell
-                    .y(stride * i - floor_ph), // y offset within the cell
+                    .x((stride_q8_8 * j) & 8'hFF), // Fractional part of stride * j
+                    .y((stride_q8_8 * i) & 8'hFF), // Fractional part of stride * i
                     .a1(a1),                   // Top right
                     .a2(a2),                   // Top left
                     .a3(a3),                   // Bottom right

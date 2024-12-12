@@ -1,17 +1,17 @@
 module tb_downsample;
 
     // Parameters
-    parameter real stride = 1.444;
+    parameter int stride_q8_8 = 369; // 1.444 * 256 = 369.9
     parameter int hin = 27;
     parameter int hout = 19;
 
     // Input and output
     logic [7:0] ifmap [0:hin-1][0:hin-1];
-  logic [7:0] ofmap [0:hout-1][0:hout-1];
+    logic [7:0] ofmap [0:hout-1][0:hout-1];
 
     // Instantiate the module under test
     downsample #(
-        .stride(stride),
+        .stride_q8_8(stride_q8_8),
         .hin(hin),
         .hout(hout)
     ) uut (
@@ -21,11 +21,11 @@ module tb_downsample;
 
     // Test initialization
     initial begin
-        // Initialize input feature map with a simple pattern for testing
+        // Initialize input feature map with a varied pattern for testing
         integer i, j;
         for (i = 0; i < hin; i++) begin
             for (j = 0; j < hin; j++) begin
-                ifmap[i][j] = (i + j) % 256; // Simple test pattern
+                ifmap[i][j] = 10*(i+j); // Random values between 0 and 250
             end
         end
 
