@@ -1,0 +1,225 @@
+Information: Propagating switching activity (medium effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -hier
+        -analysis_effort medium
+Design : flexible_downsampling
+Version: K-2015.06-SP1
+Date   : Thu Dec 12 06:20:13 2024
+****************************************
+
+
+Library(s) Used:
+
+    asap7sc7p5t_22b_SIMPLE_RVT_TT_170906 (File: /afs/asu.edu/class/e/e/e/eee525b/asap7libs/asap7libs_24/db/asap7sc7p5t_22b_SIMPLE_RVT_TT_170906.db)
+    asap7sc7p5t_22b_AO_RVT_TT_170906 (File: /afs/asu.edu/class/e/e/e/eee525b/asap7libs/asap7libs_24/db/asap7sc7p5t_22b_AO_RVT_TT_170906.db)
+    asap7sc7p5t_22b_OA_RVT_TT_170906 (File: /afs/asu.edu/class/e/e/e/eee525b/asap7libs/asap7libs_24/db/asap7sc7p5t_22b_OA_RVT_TT_170906.db)
+    asap7sc7p5t_22b_INVBUF_RVT_TT_170906 (File: /afs/asu.edu/class/e/e/e/eee525b/asap7libs/asap7libs_24/db/asap7sc7p5t_22b_INVBUF_RVT_TT_170906.db)
+    asap7sc7p5t_22b_SEQ_RVT_TT_170906 (File: /afs/asu.edu/class/e/e/e/eee525b/asap7libs/asap7libs_24/db/asap7sc7p5t_22b_SEQ_RVT_TT_170906.db)
+
+
+Operating Conditions: PVT_0P7V_25C   Library: asap7sc7p5t_22b_AO_RVT_TT_170906
+Wire Load Model Mode: segmented
+
+Design        Wire Load Model            Library
+------------------------------------------------
+
+
+Global Operating Voltage = 0.7  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ps
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+--------------------------------------------------------------------------------
+                                       Switch   Int      Leak     Total
+Hierarchy                              Power    Power    Power    Power    %
+--------------------------------------------------------------------------------
+flexible_downsampling                    45.940   27.593 3.81e+07   73.571 100.0
+  U35116 (flexible_downsampling_MUX_OP_64_6.64_88)
+                                          0.208 8.20e-02 1.57e+05    0.290   0.4
+  U35115 (flexible_downsampling_MUX_OP_64_6.64_87)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35114 (flexible_downsampling_MUX_OP_64_6.64_86)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35113 (flexible_downsampling_MUX_OP_64_6.64_85)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35112 (flexible_downsampling_MUX_OP_64_6.64_84)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35111 (flexible_downsampling_MUX_OP_64_6.64_83)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35110 (flexible_downsampling_MUX_OP_64_6.64_82)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35109 (flexible_downsampling_MUX_OP_64_6.64_81)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35108 (flexible_downsampling_MUX_OP_64_6.64_80)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35107 (flexible_downsampling_MUX_OP_64_6.64_79)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35106 (flexible_downsampling_MUX_OP_64_6.64_78)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35105 (flexible_downsampling_MUX_OP_64_6.64_77)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35104 (flexible_downsampling_MUX_OP_64_6.64_76)
+                                          0.415    0.165 3.14e+05    0.580   0.8
+  U35103 (flexible_downsampling_MUX_OP_64_6.64_75)
+                                          0.363    0.143 2.74e+05    0.507   0.7
+  U35102 (flexible_downsampling_MUX_OP_64_6.64_74)
+                                          0.416    0.164 3.14e+05    0.580   0.8
+  U35101 (flexible_downsampling_MUX_OP_64_6.64_73)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35100 (flexible_downsampling_MUX_OP_64_6.64_72)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35099 (flexible_downsampling_MUX_OP_64_6.64_71)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35098 (flexible_downsampling_MUX_OP_64_6.64_70)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35097 (flexible_downsampling_MUX_OP_64_6.64_69)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35096 (flexible_downsampling_MUX_OP_64_6.64_68)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35095 (flexible_downsampling_MUX_OP_64_6.64_67)
+                                          0.416    0.164 3.14e+05    0.580   0.8
+  U35094 (flexible_downsampling_MUX_OP_64_6.64_66)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35093 (flexible_downsampling_MUX_OP_64_6.64_65)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35092 (flexible_downsampling_MUX_OP_64_6.64_64)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35091 (flexible_downsampling_MUX_OP_64_6.64_63)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35090 (flexible_downsampling_MUX_OP_64_6.64_62)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35089 (flexible_downsampling_MUX_OP_64_6.64_61)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35088 (flexible_downsampling_MUX_OP_64_6.64_60)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35087 (flexible_downsampling_MUX_OP_64_6.64_59)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35086 (flexible_downsampling_MUX_OP_64_6.64_58)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35085 (flexible_downsampling_MUX_OP_64_6.64_57)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35084 (flexible_downsampling_MUX_OP_64_6.64_56)
+                                          0.416    0.164 3.14e+05    0.580   0.8
+  U35083 (flexible_downsampling_MUX_OP_64_6.64_55)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35082 (flexible_downsampling_MUX_OP_64_6.64_54)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35081 (flexible_downsampling_MUX_OP_64_6.64_53)
+                                          0.415    0.165 3.14e+05    0.580   0.8
+  U35080 (flexible_downsampling_MUX_OP_64_6.64_52)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35079 (flexible_downsampling_MUX_OP_64_6.64_51)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35078 (flexible_downsampling_MUX_OP_64_6.64_50)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35077 (flexible_downsampling_MUX_OP_64_6.64_49)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35076 (flexible_downsampling_MUX_OP_64_6.64_48)
+                                          0.363    0.143 2.74e+05    0.507   0.7
+  U35075 (flexible_downsampling_MUX_OP_64_6.64_47)
+                                          0.415    0.165 3.14e+05    0.580   0.8
+  U35074 (flexible_downsampling_MUX_OP_64_6.64_46)
+                                          0.415    0.165 3.14e+05    0.580   0.8
+  U35073 (flexible_downsampling_MUX_OP_64_6.64_45)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35072 (flexible_downsampling_MUX_OP_64_6.64_44)
+                                          0.363    0.144 2.75e+05    0.508   0.7
+  U35071 (flexible_downsampling_MUX_OP_64_6.64_43)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35070 (flexible_downsampling_MUX_OP_64_6.64_42)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35069 (flexible_downsampling_MUX_OP_64_6.64_41)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35068 (flexible_downsampling_MUX_OP_64_6.64_40)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35067 (flexible_downsampling_MUX_OP_64_6.64_39)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35066 (flexible_downsampling_MUX_OP_64_6.64_38)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35065 (flexible_downsampling_MUX_OP_64_6.64_37)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35064 (flexible_downsampling_MUX_OP_64_6.64_36)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35063 (flexible_downsampling_MUX_OP_64_6.64_35)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35062 (flexible_downsampling_MUX_OP_64_6.64_34)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35061 (flexible_downsampling_MUX_OP_64_6.64_33)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35060 (flexible_downsampling_MUX_OP_64_6.64_32)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35059 (flexible_downsampling_MUX_OP_64_6.64_31)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35058 (flexible_downsampling_MUX_OP_64_6.64_30)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35057 (flexible_downsampling_MUX_OP_64_6.64_29)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35056 (flexible_downsampling_MUX_OP_64_6.64_28)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35055 (flexible_downsampling_MUX_OP_64_6.64_27)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35054 (flexible_downsampling_MUX_OP_64_6.64_26)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35053 (flexible_downsampling_MUX_OP_64_6.64_25)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35052 (flexible_downsampling_MUX_OP_64_6.64_24)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35051 (flexible_downsampling_MUX_OP_64_6.64_23)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35050 (flexible_downsampling_MUX_OP_64_6.64_22)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35049 (flexible_downsampling_MUX_OP_64_6.64_21)
+                                          0.363    0.143 2.74e+05    0.507   0.7
+  U35048 (flexible_downsampling_MUX_OP_64_6.64_20)
+                                          0.416    0.165 3.14e+05    0.581   0.8
+  U35047 (flexible_downsampling_MUX_OP_64_6.64_19)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35046 (flexible_downsampling_MUX_OP_64_6.64_18)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35045 (flexible_downsampling_MUX_OP_64_6.64_17)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35044 (flexible_downsampling_MUX_OP_64_6.64_16)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35043 (flexible_downsampling_MUX_OP_64_6.64_15)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35042 (flexible_downsampling_MUX_OP_64_6.64_14)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35041 (flexible_downsampling_MUX_OP_64_6.64_13)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35040 (flexible_downsampling_MUX_OP_64_6.64_12)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35039 (flexible_downsampling_MUX_OP_64_6.64_11)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35038 (flexible_downsampling_MUX_OP_64_6.64_10)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35037 (flexible_downsampling_MUX_OP_64_6.64_9)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35036 (flexible_downsampling_MUX_OP_64_6.64_8)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35035 (flexible_downsampling_MUX_OP_64_6.64_7)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35034 (flexible_downsampling_MUX_OP_64_6.64_6)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35033 (flexible_downsampling_MUX_OP_64_6.64_5)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35032 (flexible_downsampling_MUX_OP_64_6.64_4)
+                                          0.363    0.144 2.75e+05    0.507   0.7
+  U35031 (flexible_downsampling_MUX_OP_64_6.64_3)
+                                          0.415    0.164 3.14e+05    0.580   0.8
+  U35030 (flexible_downsampling_MUX_OP_64_6.64_2)
+                                          0.416    0.164 3.14e+05    0.580   0.8
+  U35029 (flexible_downsampling_MUX_OP_64_6.64)
+                                          0.415    0.165 3.14e+05    0.580   0.8
+  U35028 (flexible_downsampling_MUX_OP_64_6.8)
+                                       5.17e-02 2.05e-02 4.11e+04 7.22e-02   0.1
+  u_downsample (downsample_stride_q8_8369_hin27_hout19)
+                                          8.092    4.235 9.28e+06   12.336  16.8
+1

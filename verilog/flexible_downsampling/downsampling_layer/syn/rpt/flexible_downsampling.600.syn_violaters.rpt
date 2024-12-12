@@ -1,0 +1,13 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+        -verbose
+Design : flexible_downsampling
+Version: K-2015.06-SP1
+Date   : Thu Dec 12 06:23:57 2024
+****************************************
+
+This design has no violated constraints.
+
+1
