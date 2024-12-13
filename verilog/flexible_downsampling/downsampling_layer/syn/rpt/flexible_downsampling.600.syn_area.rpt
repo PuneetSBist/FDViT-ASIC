@@ -1,0 +1,259 @@
+ 
+****************************************
+Report : area
+Design : flexible_downsampling
+Version: K-2015.06-SP1
+Date   : Thu Dec 12 06:14:45 2024
+****************************************
+
+Library(s) Used:
+
+    asap7sc7p5t_22b_SIMPLE_RVT_TT_170906 (File: /afs/asu.edu/class/e/e/e/eee525b/asap7libs/asap7libs_24/db/asap7sc7p5t_22b_SIMPLE_RVT_TT_170906.db)
+    asap7sc7p5t_22b_AO_RVT_TT_170906 (File: /afs/asu.edu/class/e/e/e/eee525b/asap7libs/asap7libs_24/db/asap7sc7p5t_22b_AO_RVT_TT_170906.db)
+    asap7sc7p5t_22b_OA_RVT_TT_170906 (File: /afs/asu.edu/class/e/e/e/eee525b/asap7libs/asap7libs_24/db/asap7sc7p5t_22b_OA_RVT_TT_170906.db)
+    asap7sc7p5t_22b_INVBUF_RVT_TT_170906 (File: /afs/asu.edu/class/e/e/e/eee525b/asap7libs/asap7libs_24/db/asap7sc7p5t_22b_INVBUF_RVT_TT_170906.db)
+    asap7sc7p5t_22b_SEQ_RVT_TT_170906 (File: /afs/asu.edu/class/e/e/e/eee525b/asap7libs/asap7libs_24/db/asap7sc7p5t_22b_SEQ_RVT_TT_170906.db)
+
+Number of ports:                       751994
+Number of nets:                       1527718
+Number of cells:                       785535
+Number of combinational cells:         780029
+Number of sequential cells:              5416
+Number of macros/black boxes:               0
+Number of buf/inv:                      85517
+Number of references:                     109
+
+Combinational area:             757671.278144
+Buf/Inv area:                    66196.933344
+Noncombinational area:           32849.556267
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:                790520.834411
+Total area:                 undefined
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area              Local cell area
+                                  --------------------  ------------------------------- 
+Hierarchical cell                 Absolute     Percent  Combi-       Noncombi-   Black-
+                                  Total        Total    national     national    boxes   Design
+--------------------------------  -----------  -------  -----------  ----------  ------  ---------------------------------------
+flexible_downsampling             790520.8344    100.0   16456.0377  32849.5563  0.0000  flexible_downsampling
+U35028                              1037.6294      0.1    1037.6294      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.8
+U35029                              6848.8675      0.9    6848.8675      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64
+U35030                              6849.5674      0.9    6849.5674      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_2
+U35031                              6847.7011      0.9    6847.7011      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_3
+U35032                              5992.9632      0.8    5992.9632      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_4
+U35033                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_5
+U35034                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_6
+U35035                              5992.4967      0.8    5992.4967      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_7
+U35036                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_8
+U35037                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_9
+U35038                              5992.4967      0.8    5992.4967      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_10
+U35039                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_11
+U35040                              6848.4010      0.9    6848.4010      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_12
+U35041                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_13
+U35042                              5993.1965      0.8    5993.1965      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_14
+U35043                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_15
+U35044                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_16
+U35045                              5992.4967      0.8    5992.4967      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_17
+U35046                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_18
+U35047                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_19
+U35048                              6850.0339      0.9    6850.0339      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_20
+U35049                              5980.3661      0.8    5980.3661      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_21
+U35050                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_22
+U35051                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_23
+U35052                              5993.1965      0.8    5993.1965      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_24
+U35053                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_25
+U35054                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_26
+U35055                              5993.1965      0.8    5993.1965      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_27
+U35056                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_28
+U35057                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_29
+U35058                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_30
+U35059                              5992.4967      0.8    5992.4967      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_31
+U35060                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_32
+U35061                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_33
+U35062                              5992.4967      0.8    5992.4967      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_34
+U35063                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_35
+U35064                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_36
+U35065                              5993.1965      0.8    5993.1965      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_37
+U35066                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_38
+U35067                              6849.5674      0.9    6849.5674      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_39
+U35068                              6848.4010      0.9    6848.4010      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_40
+U35069                              5992.4967      0.8    5992.4967      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_41
+U35070                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_42
+U35071                              6849.5674      0.9    6849.5674      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_43
+U35072                              5992.9632      0.8    5992.9632      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_44
+U35073                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_45
+U35074                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_46
+U35075                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_47
+U35076                              5981.2992      0.8    5981.2992      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_48
+U35077                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_49
+U35078                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_50
+U35079                              5992.2634      0.8    5992.2634      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_51
+U35080                              6848.4010      0.9    6848.4010      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_52
+U35081                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_53
+U35082                              5992.2634      0.8    5992.2634      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_54
+U35083                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_55
+U35084                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_56
+U35085                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_57
+U35086                              5992.4967      0.8    5992.4967      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_58
+U35087                              6848.4010      0.9    6848.4010      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_59
+U35088                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_60
+U35089                              5992.4967      0.8    5992.4967      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_61
+U35090                              6848.6343      0.9    6848.6343      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_62
+U35091                              6850.5005      0.9    6850.5005      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_63
+U35092                              5993.1965      0.8    5993.1965      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_64
+U35093                              6848.4010      0.9    6848.4010      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_65
+U35094                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_66
+U35095                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_67
+U35096                              5992.4967      0.8    5992.4967      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_68
+U35097                              6848.4010      0.9    6848.4010      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_69
+U35098                              6849.5674      0.9    6849.5674      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_70
+U35099                              5993.1965      0.8    5993.1965      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_71
+U35100                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_72
+U35101                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_73
+U35102                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_74
+U35103                              5981.2992      0.8    5981.2992      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_75
+U35104                              6849.1008      0.9    6849.1008      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_76
+U35105                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_77
+U35106                              5992.4967      0.8    5992.4967      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_78
+U35107                              6850.5005      0.9    6850.5005      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_79
+U35108                              6848.6343      0.9    6848.6343      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_80
+U35109                              5991.5635      0.8    5991.5635      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_81
+U35110                              6848.4010      0.9    6848.4010      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_82
+U35111                              6850.2672      0.9    6850.2672      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_83
+U35112                              6848.4010      0.9    6848.4010      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_84
+U35113                              5993.1965      0.8    5993.1965      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_85
+U35114                              6849.3341      0.9    6849.3341      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_86
+U35115                              6849.1008      0.9    6849.1008      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_87
+U35116                              3430.6157      0.4    3430.6157      0.0000  0.0000  flexible_downsampling_MUX_OP_64_6.64_88
+u_downsample                      162299.4262     20.5  162299.4262      0.0000  0.0000  downsample_stride_q8_8369_hin27_hout19
+--------------------------------  -----------  -------  -----------  ----------  ------  ---------------------------------------
+Total                                                   757671.2781  32849.5563  0.0000
+
+
+Area of detected synthetic parts
+--------------------------------
+  No DW parts to report!
+
+Estimated area of ungrouped synthetic parts
+-------------------------------------------
+                                          Estimated  Perc. of
+  Module                Implem.  Count         Area cell area
+  --------------------- -------  ----- ------------ ---------
+  DP_OP_5363J2_122_2194     str      1     263.1699      0.0%
+  DP_OP_5365J2_124_8756     str      1     887.2428      0.1%
+  DP_OP_5366J2_125_8756     str      1     603.0459      0.1%
+  DP_OP_5367J2_126_8756     str      1    1064.5244      0.1%
+  DP_OP_5369J2_128_8756     str      1    1232.2267      0.2%
+  DP_OP_5371J2_130_8756     str      1    1294.4500      0.2%
+  DP_OP_5374J2_133_8756     str      1     733.0463      0.1%
+  DP_OP_5376J2_135_8756     str      1    1250.7325      0.2%
+  DP_OP_5377J2_136_8756     str      1    1388.1325      0.2%
+  DP_OP_5378J2_137_8756     str      1     846.8552      0.1%
+  DP_OP_5379J2_138_8756     str      1    1393.2213      0.2%
+  DP_OP_5381J2_140_8756     str      1    1155.8927      0.1%
+  DP_OP_5382J2_141_2233     str      1     270.8439      0.0%
+  DP_OP_5384J2_143_4121     str      1     802.5984      0.1%
+  DP_OP_5386J2_145_4121     str      1     955.5746      0.1%
+  DP_OP_5388J2_147_4121     str      1    1115.4131      0.1%
+  DP_OP_5396J2_155_4121     str      1    1197.2991      0.2%
+  DP_OP_5398J2_157_4121     str      1    1185.5016      0.1%
+  DP_OP_5401J2_160_4239     str      1     326.3670      0.0%
+  DP_OP_5403J2_162_4121     str      1     843.8464      0.1%
+  DP_OP_5404J2_163_4121     str      1     641.4450      0.1%
+  DP_OP_5405J2_164_4121     str      1     985.4146      0.1%
+  DP_OP_5407J2_166_4121     str      1    1170.6970      0.1%
+  DP_OP_5408J2_167_4121     str      1    1062.6741      0.1%
+  DP_OP_5409J2_168_4121     str      1    1202.1562      0.2%
+  DP_OP_5410J2_169_4121     str      1    1128.3668      0.1%
+  DP_OP_5414J2_173_4121     str      1    1132.7623      0.1%
+  DP_OP_5415J2_174_4121     str      1    1231.7652      0.2%
+  DP_OP_5417J2_176_4121     str      1    1242.6364      0.2%
+  DP_OP_5420J2_179_4239     str      1     356.1600      0.0%
+  DP_OP_5421J2_180_4121     str      1    1073.3137      0.1%
+  DP_OP_5422J2_181_4121     str      1     873.6339      0.1%
+  DP_OP_5424J2_183_4121     str      1    1011.7850      0.1%
+  DP_OP_5425J2_184_4121     str      1    1243.7923      0.2%
+  DP_OP_5426J2_185_4121     str      1    1218.1163      0.2%
+  DP_OP_5427J2_186_4121     str      1    1099.2213      0.1%
+  DP_OP_5428J2_187_4121     str      1    1256.0522      0.2%
+  DP_OP_5429J2_188_4121     str      1    1162.1387      0.1%
+  DP_OP_5430J2_189_4121     str      1    1081.4094      0.1%
+  DP_OP_5432J2_191_4121     str      1    1251.1940      0.2%
+  DP_OP_5433J2_192_4121     str      1    1164.6836      0.1%
+  DP_OP_5434J2_193_4121     str      1    1272.4761      0.2%
+  DP_OP_5435J2_194_4121     str      1    1049.9510      0.1%
+  DP_OP_5436J2_195_4121     str      1    1271.0882      0.2%
+  DP_OP_5437J2_196_4121     str      1    1056.4279      0.1%
+  DP_OP_5438J2_197_4121     str      1    1162.8324      0.1%
+  DP_OP_5439J2_198_4239     str      1     372.1849      0.0%
+  DP_OP_5441J2_200_8756     str      1    1043.1122      0.1%
+  DP_OP_5442J2_201_8756     str      1     754.5592      0.1%
+  DP_OP_5443J2_202_8756     str      1    1241.2471      0.2%
+  DP_OP_5445J2_204_8756     str      1    1434.6260      0.2%
+  DP_OP_5446J2_205_8756     str      1    1334.6982      0.2%
+  DP_OP_5447J2_206_8756     str      1    1538.0225      0.2%
+  DP_OP_5448J2_207_8756     str      1    1424.6790      0.2%
+  DP_OP_5452J2_211_8756     str      1    1425.1418      0.2%
+  DP_OP_5453J2_212_8756     str      1    1555.1397      0.2%
+  DP_OP_5455J2_214_8756     str      1    1568.3247      0.2%
+  DP_OP_5457J2_216_8756     str      1    1371.4760      0.2%
+  DP_OP_5458J2_217_2233     str      1     394.7554      0.0%
+  DP_OP_5459J2_218_4121     str      1    1131.1421      0.1%
+  DP_OP_5460J2_219_4121     str      1     940.5371      0.1%
+  DP_OP_5462J2_221_4121     str      1    1069.6137      0.1%
+  DP_OP_5463J2_222_4121     str      1    1300.0019      0.2%
+  DP_OP_5464J2_223_4121     str      1    1272.2442      0.2%
+  DP_OP_5465J2_224_4121     str      1    1128.1357      0.1%
+  DP_OP_5466J2_225_4121     str      1    1309.7172      0.2%
+  DP_OP_5468J2_227_4121     str      1    1139.4688      0.1%
+  DP_OP_5469J2_228_4121     str      1    1002.5315      0.1%
+  DP_OP_5470J2_229_4121     str      1    1311.1046      0.2%
+  DP_OP_5471J2_230_4121     str      1    1204.7009      0.2%
+  DP_OP_5472J2_231_4121     str      1    1307.1733      0.2%
+  DP_OP_5473J2_232_4121     str      1    1105.6978      0.1%
+  DP_OP_5474J2_233_4121     str      1    1314.1128      0.2%
+  DP_OP_5475J2_234_4121     str      1    1107.5485      0.1%
+  DP_OP_5476J2_235_4121     str      1    1208.8638      0.2%
+  DP_OP_5477J2_236_4239     str      1     431.3194      0.1%
+  DP_OP_5478J2_237_4121     str      1    1003.4574      0.1%
+  DP_OP_5479J2_238_4121     str      1     832.6107      0.1%
+  DP_OP_5481J2_240_4121     str      1     981.7138      0.1%
+  DP_OP_5482J2_241_4121     str      1    1154.0433      0.1%
+  DP_OP_5483J2_242_4121     str      1    1146.6409      0.1%
+  DP_OP_5485J2_244_4121     str      1    1217.6549      0.2%
+  DP_OP_5487J2_246_4121     str      1    1013.8669      0.1%
+  DP_OP_5488J2_247_4121     str      1     890.1113      0.1%
+  DP_OP_5489J2_248_4121     str      1    1188.0466      0.2%
+  DP_OP_5490J2_249_4121     str      1    1121.6592      0.1%
+  DP_OP_5491J2_250_4121     str      1    1220.4311      0.2%
+  DP_OP_5492J2_251_4121     str      1     984.0265      0.1%
+  DP_OP_5493J2_252_4121     str      1    1227.3703      0.2%
+  DP_OP_5494J2_253_4121     str      1     972.9233      0.1%
+  DP_OP_5495J2_254_4121     str      1    1086.4999      0.1%
+  DP_OP_5496J2_255_4239     str      1     357.7398      0.0%
+  DP_OP_5497J2_256_2776     str      1     723.5627      0.1%
+  DP_OP_5498J2_257_2776     str      1     675.9117      0.1%
+  DP_OP_5499J2_258_2776     str      1     541.7469      0.1%
+  DP_OP_5500J2_259_2776     str      1     879.4730      0.1%
+  DP_OP_5503J2_262_2776     str      1     960.8979      0.1%
+  DP_OP_5505J2_264_2776     str      1    1040.2397      0.1%
+  DP_OP_5507J2_266_2776     str      1     647.4590      0.1%
+  DP_OP_5509J2_268_2776     str      1    1018.2651      0.1%
+  DP_OP_5510J2_269_2776     str      1    1133.4589      0.1%
+  DP_OP_5511J2_270_2776     str      1     726.3387      0.1%
+  DP_OP_5512J2_271_2776     str      1    1156.8216      0.1%
+  DP_OP_5513J2_272_2776     str      1     688.8652      0.1%
+  DW01_inc              apparch      1      16.0249      0.0%
+  --------------------- -------  ----- ------------ ---------
+  DP_OP Subtotal:                  104  108545.8943     13.7%
+  Total:                           105  108561.9192     13.7%
+
+Subtotal of datapath(DP_OP) cell area:  108545.8943  13.7%  (estimated)
+Total synthetic cell area:              108561.9192  13.7%  (estimated)
+
+1
